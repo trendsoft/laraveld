@@ -1,4 +1,4 @@
-FROM php:7.2.30-apache
+FROM php:7.3.17-apache
 
 RUN apt-get update && apt-get install -y zip libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
 && pecl install mcrypt-1.0.1 \
