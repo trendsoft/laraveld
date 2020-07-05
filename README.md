@@ -11,5 +11,5 @@
 ## 启用 xdebug
 
 ```bash
-pecl install xdebug-2.5.0 && docker-php-ext-enable xdebug
+docker-php-ext-enable xdebug
 ```
