@@ -15,7 +15,7 @@ RUN mkdir /etc/supervisord \
 && mkdir /var/log/supervisord \
 && pip install supervisor
 
-COPY supervisor.conf /etc/supervisord/
+COPY supervisord.conf /etc/supervisord/
 
 COPY laravel-worker.conf /etc/supervisord/conf.d/
 
