@@ -19,6 +19,8 @@ COPY supervisord.conf /etc/supervisord/
 
 COPY laravel-worker.conf /etc/supervisord/conf.d/
 
+COPY apached.conf /etc/suppervisord/conf.d/
+
 WORKDIR /var/www
 
 ENTRYPOINT ["/usr/local/bin/supervisord -c /etc/supervisord/supervisord.conf"]
