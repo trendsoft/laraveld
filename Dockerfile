@@ -21,4 +21,4 @@ COPY laravel-worker.conf /etc/supervisord/conf.d/
 
 WORKDIR /var/www
 
-ENTRYPOINT ["/usr/local/bin/supervisord -c /etc/supervisord/supervisord.conf && apache2-foreground"]
+ENTRYPOINT ["/usr/local/bin/supervisord -c /etc/supervisord/supervisord.conf"]
