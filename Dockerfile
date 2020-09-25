@@ -1,6 +1,6 @@
 FROM php:7.4.10-apache
 
-RUN apt-get update && apt-get install -y libzip-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev ca-certificates curl python python-pip \
+RUN apt-get update && apt-get install -y libzip-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev ca-certificates curl python python-pip cron\
 && pecl install mcrypt-1.0.3 redis xdebug \
 && docker-php-ext-enable mcrypt redis \
 && docker-php-ext-install -j$(nproc) iconv bcmath && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -15,11 +15,15 @@ RUN mkdir /etc/supervisord \
 && mkdir /var/log/supervisord \
 && pip install supervisor
 
+RUN echo "* * * * * php /var/www/artisan schedule:run >> /dev/null 2>&1" | crontab
+
 COPY supervisord.conf /etc/supervisord/
 
 COPY laravel-worker.conf /etc/supervisord/conf.d/
 
-COPY apached.conf /etc/suppervisord/conf.d/
+COPY apached.conf /etc/supervisord/conf.d/
+
+COPY crond.conf /etc/supervisord/conf.d/
 
 WORKDIR /var/www
 
