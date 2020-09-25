@@ -27,4 +27,4 @@ COPY crond.conf /etc/supervisord/conf.d/
 
 WORKDIR /var/www
 
-ENTRYPOINT ["/usr/local/bin/supervisord -c /etc/supervisord/supervisord.conf"]
+CMD ["/usr/local/bin/supervisord","-c","/etc/supervisord/supervisord.conf"]
