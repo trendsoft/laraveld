@@ -1,4 +1,4 @@
-FROM php:7.4.10-apache
+FROM php:8.1.1-apache
 
 RUN apt-get update && apt-get install -y libzip-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev ca-certificates curl python python-pip cron\
 && pecl install mcrypt-1.0.3 redis xdebug \
