@@ -1,19 +1,22 @@
-FROM php:8.1.1-apache
+FROM php:8.1.4-apache
 
-RUN apt-get update && apt-get install -y libzip-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev ca-certificates curl python python-pip cron\
-&& pecl install mcrypt-1.0.3 redis xdebug \
-&& docker-php-ext-enable mcrypt redis \
-&& docker-php-ext-install -j$(nproc) iconv bcmath && docker-php-ext-configure gd --with-freetype --with-jpeg \
-&& docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql zip \
-&& cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
+RUN apt update && apt install -y libzip-dev zlib1g-dev libpng-dev libmagickwand-dev cron supervisor \
+&& rm -rf /var/lib/apt/lists/*
+
+RUN pecl install redis imagick xdebug
+
+RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif
+
+RUN docker-php-ext-enable redis imagick
+
+RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
 && mv /var/www/html /var/www/public \
 && sed -i 's/\/var\/www\/html/\/var\/www\/public/' /etc/apache2/sites-available/default-ssl.conf \
-&& sed -i 's/\/var\/www\/html/\/var\/www\/public/' /etc/apache2/sites-available/000-default.conf 
+&& sed -i 's/\/var\/www\/html/\/var\/www\/public/' /etc/apache2/sites-available/000-default.conf
 
 RUN mkdir /etc/supervisord \
 && mkdir /etc/supervisord/conf.d \
-&& mkdir /var/log/supervisord \
-&& pip install supervisor
+&& mkdir /var/log/supervisord
 
 RUN echo "* * * * * php /var/www/artisan schedule:run >> /dev/null 2>&1" | crontab
 
