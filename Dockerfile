@@ -30,4 +30,4 @@ COPY crond.conf /etc/supervisord/conf.d/
 
 WORKDIR /var/www
 
-CMD ["/usr/local/bin/supervisord","-c","/etc/supervisord/supervisord.conf"]
+CMD ["/usr/bin/supervisord","-c","/etc/supervisord/supervisord.conf"]
