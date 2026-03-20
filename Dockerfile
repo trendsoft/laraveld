@@ -1,6 +1,6 @@
 FROM php:8.5.4-apache
 
-RUN apt update && apt install -y libzip-dev zlib1g-dev libpng-dev libmagickwand-dev cron supervisor \
+RUN apt update && apt install -y libzip-dev zlib1g-dev libpng-dev libmagickwand-dev cron supervisor curl git \
 && rm -rf /var/lib/apt/lists/*
 
 RUN pecl install redis imagick xdebug
@@ -8,6 +8,8 @@ RUN pecl install redis imagick xdebug
 RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif pcntl
 
 RUN docker-php-ext-enable redis imagick pcntl
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
 && mv /var/www/html /var/www/public \
