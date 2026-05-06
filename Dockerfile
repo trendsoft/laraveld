@@ -1,13 +1,13 @@
-FROM php:8.5.4-apache
+FROM php:8.3.30-apache
 
 RUN apt update && apt install -y libzip-dev zlib1g-dev libpng-dev libmagickwand-dev cron supervisor curl git \
 && rm -rf /var/lib/apt/lists/*
 
 RUN pecl install redis imagick xdebug
 
-RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif pcntl
+RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif pcntl sqlsrv-5.12.1 pdo_sqlsrv-5.12.1
 
-RUN docker-php-ext-enable redis imagick pcntl
+RUN docker-php-ext-enable redis imagick pcntl sqlsrv pdo_sqlsrv
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
