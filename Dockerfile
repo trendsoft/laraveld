@@ -5,7 +5,7 @@ RUN apt update && apt install -y libzip-dev zlib1g-dev libpng-dev libmagickwand-
 
 RUN pecl install redis imagick xdebug
 
-RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif pcntl sqlsrv-5.13.1 pdo_sqlsrv-5.13.1
+RUN docker-php-ext-install gd bcmath zip mysqli pdo_mysql gettext calendar exif pcntl && pecl install sqlsrv pdo_sqlsrv
 
 RUN docker-php-ext-enable redis imagick pcntl sqlsrv pdo_sqlsrv
 
